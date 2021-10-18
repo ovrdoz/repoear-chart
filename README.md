@@ -7,7 +7,6 @@ This Helm chart is a way to configure and run our [Repoear Docker image][] the s
 
 - [Requirements](#requirements)
 - [Installing](#installing)
-<!--   - [Install released version using Helm repository](#install-released-version-using-helm-repository) -->
   - [Install development version using master branch](#install-development-version-using-master-branch)
 - [Usage notes](#usage-notes)
 - [Configuration](#configuration)
