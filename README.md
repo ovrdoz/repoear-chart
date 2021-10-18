@@ -1,10 +1,13 @@
 # Repoear Helm Chart
 
-This Helm chart is a lightweight way to configure and run our [Repoear Docker image][] the simple way to make gitops.
+Repoear is a lightweight and easy-to-use GitOps project, you can easily deploy a statefulset to your Kubernetes and sync with your git repository.
+The idea of ​​this project is simplicity, you don't need to install complex tools, but we respect and admire amazing tools like ArgoCD, so this project has a very strong influence.
+
+This Helm chart is a way to configure and run our [Repoear Docker image][] the simple way to make gitops.
 
 - [Requirements](#requirements)
 - [Installing](#installing)
-  - [Install released version using Helm repository](#install-released-version-using-helm-repository)
+<!--   - [Install released version using Helm repository](#install-released-version-using-helm-repository) -->
   - [Install development version using master branch](#install-development-version-using-master-branch)
 - [Usage notes](#usage-notes)
 - [Configuration](#configuration)
@@ -20,14 +23,14 @@ This Helm chart is a lightweight way to configure and run our [Repoear Docker im
 
 ## Installing
 
-### Install released version using Helm repository
+<!--### Install released version using Helm repository
 
 * Add the Repoear Helm charts repo:
 `helm repo add Repoear https://ovrdoz.github.com/repoear`
 
 * Install it:
   - with Helm 3: `helm install repoear ovrdoz/repoear`
-  - with Helm 2 (deprecated): `helm install --name repoear ovrdoz/repoear`
+  - with Helm 2 (deprecated): `helm install --name repoear ovrdoz/repoear` -->
 
 ### Install development version using master branch
 
@@ -43,15 +46,10 @@ This Helm chart is a lightweight way to configure and run our [Repoear Docker im
 update of your cluster. It does this by waiting for the cluster health to become
 green after each instance is updated. If you prefer to update manually you can
 set `OnDelete` [updateStrategy][].
-* We have designed this chart to be very un-opinionated about how to configure
-Repoear. It exposes ways to set environment variables and mount secrets inside
-of the container. Doing this makes it much easier for this chart to support
-multiple versions with minimal changes.
 * `config.yml` configuration files can be set either by a ConfigMap using
 `repoearConfig` in `values.yml`, however Repoear Docker image can't mix both methods as
 defining settings with environment variables causes `config.yml` to be
-modified in place while using ConfigMap bind-mount the same file (more details
-in this [note][]).
+modified in place while using ConfigMap bind-mount the same file.
 * An ingress is provided that can be used to expose the HTTP port. This can be
 useful for the [http input plugin][], for instance.
 
@@ -87,7 +85,7 @@ useful for the [http input plugin][], for instance.
 | `service`                 | Configurable [service][] to expose the Repoear service.                                                                                                                                                                             | see [values.yaml][]                   |
 | `terminationGracePeriod`  | The [terminationGracePeriod][] in seconds used when trying to stop the pod                                                                                                                                                           | `120`                                 |
 | `updateStrategy`          | The [updateStrategy][] for the StatefulSet. By default Kubernetes will wait for the cluster to be green after upgrading each pod. Setting this to `OnDelete` will allow you to manually delete each pod during upgrades              | `RollingUpdate`                       |
-| `volumeClaimTemplate`     | Configuration for the [volumeClaimTemplate for StatefulSets][]. You will want to adjust the storage (default `30Gi` ) and the `storageClassName` if you are using a different storage class                                          | see [values.yaml][]                   |
+| `volumeClaimTemplate`     | Configuration for the [volumeClaimTemplate for StatefulSets][]. You will want to adjust the storage (default `1Gi` ) and the `storageClassName` if you are using a different storage class                                          | see [values.yaml][]                   |
 
 
 [Repoear Docker image]: https://hub.docker.com/repository/docker/ovrdoz/repoear
@@ -117,3 +115,4 @@ useful for the [http input plugin][], for instance.
 [terminationGracePeriod]: https://kubernetes.io/docs/concepts/workloads/pods/pod/#termination-of-pods
 [tolerations]: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
 [volumeClaimTemplate for statefulsets]: https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#stable-storage
+[values.yaml]: https://github.com/ovrdoz/repoear-chart/blob/main/values.yaml
