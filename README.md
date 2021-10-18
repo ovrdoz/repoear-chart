@@ -1,7 +1,6 @@
 # Repoear Helm Chart
 
-This Helm chart is a lightweight way to configure and run our official
-[Repoear Docker image][].
+This Helm chart is a lightweight way to configure and run our [Repoear Docker image][] the simple way to make gitops.
 
 - [Requirements](#requirements)
 - [Installing](#installing)
@@ -91,6 +90,7 @@ useful for the [http input plugin][], for instance.
 | `volumeClaimTemplate`     | Configuration for the [volumeClaimTemplate for StatefulSets][]. You will want to adjust the storage (default `30Gi` ) and the `storageClassName` if you are using a different storage class                                          | see [values.yaml][]                   |
 
 
+[Repoear Docker image]: https://hub.docker.com/repository/docker/ovrdoz/repoear
 [alternate scheduler]: https://kubernetes.io/docs/tasks/administer-cluster/configure-multiple-schedulers/#specify-schedulers-for-pods
 [annotations]: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/
 [anti-affinity]: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
