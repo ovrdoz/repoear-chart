@@ -4,7 +4,7 @@ This Helm chart is a lightweight way to configure and run our [Repoear Docker im
 
 - [Requirements](#requirements)
 - [Installing](#installing)
-  - [Install released version using Helm repository](#install-released-version-using-helm-repository)
+<!--   - [Install released version using Helm repository](#install-released-version-using-helm-repository) -->
   - [Install development version using master branch](#install-development-version-using-master-branch)
 - [Usage notes](#usage-notes)
 - [Configuration](#configuration)
@@ -20,14 +20,14 @@ This Helm chart is a lightweight way to configure and run our [Repoear Docker im
 
 ## Installing
 
-### Install released version using Helm repository
+<!--### Install released version using Helm repository
 
 * Add the Repoear Helm charts repo:
 `helm repo add Repoear https://ovrdoz.github.com/repoear`
 
 * Install it:
   - with Helm 3: `helm install repoear ovrdoz/repoear`
-  - with Helm 2 (deprecated): `helm install --name repoear ovrdoz/repoear`
+  - with Helm 2 (deprecated): `helm install --name repoear ovrdoz/repoear` -->
 
 ### Install development version using master branch
 
@@ -87,7 +87,7 @@ useful for the [http input plugin][], for instance.
 | `service`                 | Configurable [service][] to expose the Repoear service.                                                                                                                                                                             | see [values.yaml][]                   |
 | `terminationGracePeriod`  | The [terminationGracePeriod][] in seconds used when trying to stop the pod                                                                                                                                                           | `120`                                 |
 | `updateStrategy`          | The [updateStrategy][] for the StatefulSet. By default Kubernetes will wait for the cluster to be green after upgrading each pod. Setting this to `OnDelete` will allow you to manually delete each pod during upgrades              | `RollingUpdate`                       |
-| `volumeClaimTemplate`     | Configuration for the [volumeClaimTemplate for StatefulSets][]. You will want to adjust the storage (default `30Gi` ) and the `storageClassName` if you are using a different storage class                                          | see [values.yaml][]                   |
+| `volumeClaimTemplate`     | Configuration for the [volumeClaimTemplate for StatefulSets][]. You will want to adjust the storage (default `1Gi` ) and the `storageClassName` if you are using a different storage class                                          | see [values.yaml][]                   |
 
 
 [Repoear Docker image]: https://hub.docker.com/repository/docker/ovrdoz/repoear
