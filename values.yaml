@@ -1,0 +1,149 @@
+
+image: "docker.io/ovrdoz/repoear"
+imageTag: "v1.0.0"
+imagePullPolicy: "IfNotPresent"
+imagePullSecrets: []
+replicas: 1
+
+# Allows you to add any config files in config/config.yml
+repoearConfig: 
+  config.yml: |
+    refresh_interval: 30
+    repositories:
+      - name: release
+        auto_sync: false
+        url: git@github.com:ovrdoz/release.git
+        script: |
+          #!/bin/bash
+          echo "hello i'm repoear.io"
+
+# Add sensitive data to k8s secrets
+secret: 
+  data:
+    privateKey.filepath: "github_rsa" # The path to file should be relative to the `values.yaml` file.
+
+resources:
+  requests:
+    cpu: "100m"
+    memory: "512Mi"
+  limits:
+    cpu: "100m"
+    memory: "512Mi"
+
+volumeClaimTemplate:
+  accessModes: [ "ReadWriteOnce" ]
+  resources:
+    requests:
+      storage: 512Mi
+
+securityContext:
+  runAsUser: 0
+  privileged: true
+# Whether this chart should self-manage its service account, role, and associated role binding.
+managedServiceAccount: true
+
+clusterRoleRules:
+  - verbs:
+      - "*"
+    apiGroups:
+      - "*"
+    resources:
+      - "*"
+  - verbs:
+      - "*"
+    nonResourceURLs:
+      - "*"
+
+persistence:
+  enabled: true
+  annotations: {}
+
+# By default this will make sure two pods don't end up on the same node
+# Changing this to a region would allow you to spread pods across regions
+antiAffinityTopologyKey: "kubernetes.io/hostname"
+
+# Hard means that by default pods will only be scheduled if there are enough nodes for them
+# and that they will never end up on the same node. Setting this to soft will do this "best effort"
+antiAffinity: "hard"
+
+# This is the node affinity settings as defined in
+# https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#node-affinity
+nodeAffinity: {}
+
+# This is inter-pod affinity settings as defined in
+# https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity
+podAffinity: {}
+
+# The default is to deploy all pods serially. By setting this to parallel all pods are started at
+# the same time when bootstrapping the cluster
+podManagementPolicy: "Parallel"
+
+httpPort: 8000
+
+updateStrategy: RollingUpdate
+
+# How long to wait for repoear to stop gracefully
+terminationGracePeriod: 120
+
+livenessProbe:
+  httpGet:
+    path: /healthcheck
+    port: http
+  timeoutSeconds: 1
+  periodSeconds: 10
+  successThreshold: 1
+  failureThreshold: 3
+
+readinessProbe:
+  httpGet:
+    path: /healthcheck
+    port: http
+  timeoutSeconds: 1
+  periodSeconds: 10
+  successThreshold: 1
+  failureThreshold: 3
+
+
+## Use an alternate scheduler.
+## ref: https://kubernetes.io/docs/tasks/administer-cluster/configure-multiple-schedulers/
+##
+schedulerName: ""
+
+nodeSelector: {}
+tolerations: []
+
+nameOverride: ""
+fullnameOverride: "repoear-io"
+
+lifecycle: {}
+  # preStop:
+  #   exec:
+  #     command: ["/bin/sh", "-c", "echo Hello from the postStart handler > /usr/share/message"]
+  # postStart:
+  #   exec:
+  #     command: ["/bin/sh", "-c", "echo Hello from the postStart handler > /usr/share/message"]
+
+service: {}
+#  annotations: {}
+#  type: ClusterIP
+#  loadBalancerIP: ""
+#  ports:
+#    - name: beats
+#      port: 5044
+#      protocol: TCP
+#      targetPort: 5044
+#    - name: http
+#      port: 8080
+#      protocol: TCP
+#      targetPort: 8080
+
+ingress:
+  enabled: false
+  className: "nginx"
+  pathtype: ImplementationSpecific
+  hosts:
+    - host: repoear-example.local
+      paths:
+        - path: /
+  tls: []
+#  annotations: {}
