@@ -36,8 +36,8 @@ This Helm chart is a way to configure and run our [Repoear Docker image][] the s
 * Clone the git repo: `git clone git@github.com:ovrdoz/repoear-chart.git`
 
 * Install it:
-  - with Helm 3: `helm install repoear ./repoear-chart  
-  - with Helm 2 (deprecated): `helm install --name repoear ./repoear-chart  
+  - with Helm 3: `helm install repoear ./repoear-chart` 
+  - with Helm 2 (deprecated): `helm install --name repoear ./repoear-chart`
 
 ## Usage notes
 
