@@ -1,6 +1,6 @@
 
 image: "docker.io/ovrdoz/repoear"
-imageTag: "v1.0.0"
+imageTag: "v1.0.1"
 imagePullPolicy: "IfNotPresent"
 imagePullSecrets: []
 replicas: 1
