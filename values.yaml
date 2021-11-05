@@ -1,6 +1,6 @@
 
 image: "docker.io/ovrdoz/repoear"
-imageTag: "v1.0.1"
+imageTag: "v1.0.2"
 imagePullPolicy: "IfNotPresent"
 imagePullSecrets: []
 replicas: 1
@@ -8,10 +8,11 @@ replicas: 1
 # Allows you to add any config files in config/config.yml
 repoearConfig: 
   config.yml: |
-    refresh_interval: 30
+    refresh: 30
     repositories:
       - name: release
-        auto_sync: false
+        sync: true
+        force: false
         url: git@github.com:ovrdoz/release.git
         script: |
           #!/bin/bash
